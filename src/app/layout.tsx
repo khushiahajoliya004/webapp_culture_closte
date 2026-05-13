@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Great_Vibes } from "next/font/google";
+import { Lora, Playfair_Display, Roboto } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
-const inter = Inter({
+const lora = Lora({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const playfair = Playfair_Display({
@@ -16,10 +17,10 @@ const playfair = Playfair_Display({
   weight: ["400", "500", "600", "700"],
 });
 
-const greatVibes = Great_Vibes({
+const roboto = Roboto({
   variable: "--font-script",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${playfair.variable} ${greatVibes.variable} antialiased min-h-screen flex flex-col font-sans`}
+        className={`${lora.variable} ${playfair.variable} ${roboto.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <Providers>
           <Header />

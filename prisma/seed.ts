@@ -4,17 +4,17 @@ import bcrypt from "bcryptjs";
 async function main() {
   // Create categories
   const categories = [
-    { name: "Women", slug: "women", imageUrl: "https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=600&h=800&fit=crop", sortOrder: 1 },
-    { name: "Men", slug: "men", imageUrl: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop", sortOrder: 2 },
-    { name: "Kids", slug: "kids", imageUrl: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&h=800&fit=crop", sortOrder: 3 },
-    { name: "Navaratri Collection", slug: "navaratri-collection", imageUrl: "https://images.unsplash.com/photo-1609234656388-0ff363383899?w=600&h=800&fit=crop", sortOrder: 4 },
-    { name: "Sarees", slug: "sarees", imageUrl: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop", sortOrder: 5, parentId: "" },
-    { name: "Blouses", slug: "blouses", imageUrl: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&h=800&fit=crop", sortOrder: 6, parentId: "" },
-    { name: "Kurtis", slug: "kurtis", imageUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=800&fit=crop", sortOrder: 7, parentId: "" },
-    { name: "Jewellery", slug: "jewellery", imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop", sortOrder: 8, parentId: "" },
-    { name: "Footwear", slug: "footwear", imageUrl: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop", sortOrder: 9, parentId: "" },
-    { name: "Accessories", slug: "accessories", imageUrl: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&h=800&fit=crop", sortOrder: 10, parentId: "" },
-    { name: "Lehenga", slug: "lehenga", imageUrl: "https://images.unsplash.com/photo-1599669454699-248893623440?w=600&h=800&fit=crop", sortOrder: 11, parentId: "" },
+    { name: "Women", slug: "women", imageUrl: "/images/figma/cat-women.png", sortOrder: 1 },
+    { name: "Men", slug: "men", imageUrl: "/images/figma/cat-men.png", sortOrder: 2 },
+    { name: "Kids", slug: "kids", imageUrl: "/images/figma/cat-kids.png", sortOrder: 3 },
+    { name: "Navaratri Collection", slug: "navaratri-collection", imageUrl: "/images/figma/cat-navaratri.png", sortOrder: 4 },
+    { name: "Sarees", slug: "sarees", imageUrl: "/images/figma/cat-sarees.png", sortOrder: 5, parentId: "" },
+    { name: "Blouses", slug: "blouses", imageUrl: "/images/figma/cat-blouses.png", sortOrder: 6, parentId: "" },
+    { name: "Kurtis", slug: "kurtis", imageUrl: "/images/figma/cat-kurtis.png", sortOrder: 7, parentId: "" },
+    { name: "Jewellery", slug: "jewellery", imageUrl: "/images/figma/cat-jewellery.png", sortOrder: 8, parentId: "" },
+    { name: "Footwear", slug: "footwear", imageUrl: "/images/figma/cat-footwear.png", sortOrder: 9, parentId: "" },
+    { name: "Accessories", slug: "accessories", imageUrl: "/images/figma/cat-accessories.png", sortOrder: 10, parentId: "" },
+    { name: "Lehenga", slug: "lehenga", imageUrl: "/images/figma/cat-lehenga.png", sortOrder: 11, parentId: "" },
   ];
 
   const createdCategories: Record<string, string> = {};
@@ -22,7 +22,7 @@ async function main() {
   for (const cat of categories) {
     const created = await prisma.category.upsert({
       where: { slug: cat.slug },
-      update: {},
+      update: { imageUrl: cat.imageUrl, name: cat.name, sortOrder: cat.sortOrder },
       create: {
         name: cat.name,
         slug: cat.slug,
@@ -99,7 +99,7 @@ async function main() {
       occasion: JSON.stringify(["Festive", "Wedding Guest"]),
       countryOfOrigin: "India",
       countryLocation: "United States",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify(["/images/figma/product-saree-2.png"]),
     },
     {
       title: "Baby Pink Lehenga",
@@ -114,7 +114,7 @@ async function main() {
       occasion: JSON.stringify(["Bridal", "Pre-wedding"]),
       countryOfOrigin: "India",
       countryLocation: "Canada",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1599669454699-248893623440?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify(["/images/figma/product-lehenga.png"]),
     },
     {
       title: "Pink Satin Bridesmaid Skirt Set",
@@ -129,7 +129,7 @@ async function main() {
       occasion: JSON.stringify(["Wedding Party"]),
       countryOfOrigin: "India",
       countryLocation: "United Kingdom",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify(["/images/figma/listing-1.png"]),
     },
     {
       title: "Black Embroidered Top Kurta",
@@ -144,7 +144,7 @@ async function main() {
       occasion: JSON.stringify(["Casual", "Festive"]),
       countryOfOrigin: "Pakistan",
       countryLocation: "Australia",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify(["/images/figma/product-kurta.png"]),
     },
     {
       title: "Mehendi Lehenga with Kurta",
