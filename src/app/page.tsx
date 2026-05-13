@@ -53,12 +53,12 @@ const testimonials = [
   {
     text: "Culture Closet made it so easy to find a beautiful saree for my cousin's wedding. The seller was wonderful and the item was exactly as described. I'll definitely be shopping here again!",
     name: "Priya M.",
-    image: ci.testimonial1,
+    image: ci.featureNecklace,
   },
   {
     text: "I sold my old lehenga in just two days! The process was so simple and I loved that it went to someone who would treasure it. Such a wonderful community.",
     name: "Ananya S.",
-    image: ci.testimonial1,
+    image: ci.sectionWoman,
   },
 ];
 
@@ -180,19 +180,16 @@ export default async function HomePage() {
 
       {/* ── TOP CATEGORIES ────────────────────────────────────── */}
       <section className="mx-auto max-w-[1310px] px-4 pb-14">
-        <div className="flex items-center justify-between mb-7">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center gap-2">
-            <span className="text-[#D57429] text-lg">✦</span> Products Categories
+        <div className="text-center mb-8">
+          <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
+            <span className="text-[#D57429]">✦</span> Categories <span className="text-[#D57429]">✦</span>
           </h2>
-          <Link href="/categories" className="text-sm text-[#0F4041] font-medium hover:underline flex items-center gap-1">
-            View All <ChevronRight className="h-4 w-4" />
-          </Link>
         </div>
-        <div className="relative">
+        <div className="relative px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {categories.map((cat) => (
-              <Link key={cat.id} href={`/categories/${cat.slug}`}>
-                <div className="group relative overflow-hidden aspect-[3/4] bg-[#E5E0D8]">
+              <Link key={cat.id} href={`/categories/${cat.slug}`} className="group block">
+                <div className="relative overflow-hidden aspect-[3/4] bg-[#E5E0D8]">
                   <Image
                     src={cat.imageUrl || "/placeholder.svg"}
                     alt={cat.name}
@@ -208,10 +205,10 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
-          <button className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+          <button className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <button className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+          <button className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
@@ -221,56 +218,29 @@ export default async function HomePage() {
       <section className="bg-[#FFF2F0] py-16">
         <div className="mx-auto max-w-[1310px] px-4">
           <div className="text-center mb-10">
-            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center justify-center gap-2">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
               <span className="text-[#D57429]">✦</span> How it Works <span className="text-[#D57429]">✦</span>
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {/* For Buyers */}
+            {/* For Sellers — LEFT */}
             <div className="border-2 border-[#D57429] bg-white overflow-hidden">
-              <div className="bg-[#0F4041] text-white px-6 py-3 font-semibold text-sm tracking-wider">FOR BUYERS</div>
+              <div className="bg-[#D57429] text-white px-6 py-3 font-semibold text-sm tracking-widest">FOR SELLERS</div>
               <div className="relative h-[300px] overflow-hidden">
-                <Image src={ci.catWomen} alt="For Buyers" fill className="object-cover object-top" unoptimized />
-              </div>
-              <div className="p-6 space-y-5">
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  {[
-                    { icon: Search, label: "Browse Collection" },
-                    { icon: Heart, label: "Select & Wishlist" },
-                    { icon: Truck, label: "Get Your Items" },
-                  ].map(({ icon: Icon, label }) => (
-                    <div key={label} className="space-y-2">
-                      <div className="w-11 h-11 mx-auto bg-[#F7F7F7] rounded-full flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-[#0F4041]" />
-                      </div>
-                      <p className="text-xs font-medium text-[#0F0D1A]">{label}</p>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-[#403D3D] text-center leading-relaxed">
-                  Looking for the perfect outfit for your next event? Discover over 4000 listings of pre-loved, gently used South Asian outfits and accessories.
-                </p>
-              </div>
-            </div>
-
-            {/* For Sellers */}
-            <div className="border-2 border-[#0F4041] bg-white overflow-hidden">
-              <div className="bg-[#D57429] text-white px-6 py-3 font-semibold text-sm tracking-wider">FOR SELLERS</div>
-              <div className="relative h-[300px] overflow-hidden">
-                <Image src={ci.catNavaratri} alt="For Sellers" fill className="object-cover object-top" unoptimized />
+                <Image src={ci.productWoman3} alt="For Sellers" fill className="object-cover object-top" unoptimized />
               </div>
               <div className="p-6 space-y-5">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   {[
                     { icon: Camera, label: "Create Listing" },
-                    { icon: Tag, label: "Set Your Price" },
+                    { icon: Tag, label: "Set Price" },
                     { icon: Truck, label: "Ship & Earn" },
                   ].map(({ icon: Icon, label }) => (
                     <div key={label} className="space-y-2">
-                      <div className="w-11 h-11 mx-auto bg-[#F7F7F7] rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 mx-auto border border-[#E5E7EB] bg-[#FFFAF7] flex items-center justify-center">
                         <Icon className="w-5 h-5 text-[#D57429]" />
                       </div>
-                      <p className="text-xs font-medium text-[#0F0D1A]">{label}</p>
+                      <p className="text-[11px] font-semibold text-[#0F0D1A] uppercase tracking-wide">{label}</p>
                     </div>
                   ))}
                 </div>
@@ -279,10 +249,37 @@ export default async function HomePage() {
                 </p>
               </div>
             </div>
+
+            {/* For Buyers — RIGHT */}
+            <div className="border-2 border-[#0F4041] bg-white overflow-hidden">
+              <div className="bg-[#0F4041] text-white px-6 py-3 font-semibold text-sm tracking-widest">FOR BUYERS</div>
+              <div className="relative h-[300px] overflow-hidden">
+                <Image src={ci.productWoman2} alt="For Buyers" fill className="object-cover object-top" unoptimized />
+              </div>
+              <div className="p-6 space-y-5">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  {[
+                    { icon: Search, label: "1. Browse Collection" },
+                    { icon: Heart, label: "2. Select & Pay" },
+                    { icon: Truck, label: "3. Get Your Items" },
+                  ].map(({ icon: Icon, label }) => (
+                    <div key={label} className="space-y-2">
+                      <div className="w-12 h-12 mx-auto border border-[#E5E7EB] bg-[#F7FBFA] flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-[#0F4041]" />
+                      </div>
+                      <p className="text-[11px] font-semibold text-[#0F0D1A] tracking-wide leading-tight">{label}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm text-[#403D3D] text-center leading-relaxed">
+                  Looking for the perfect outfit for your next event? Discover over 4000 listings of pre-loved, gently used South Asian outfits and accessories.
+                </p>
+              </div>
+            </div>
           </div>
           <div className="text-center mt-8">
             <Link href="/how-it-works">
-              <Button className="bg-[#0F4041] hover:bg-[#0a3334] text-white px-10 h-11 rounded-none text-sm font-semibold tracking-wider">
+              <Button className="bg-[#951E45] hover:bg-[#7a1839] text-white px-12 h-11 rounded-none text-sm font-semibold tracking-widest">
                 LEARN MORE
               </Button>
             </Link>
@@ -292,65 +289,81 @@ export default async function HomePage() {
 
       {/* ── FEATURED LISTINGS ─────────────────────────────────── */}
       <section className="mx-auto max-w-[1310px] px-4 py-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center gap-2">
-            <span className="text-[#D57429]">✦</span> Featured Listings
+        <div className="text-center mb-8">
+          <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
+            <span className="text-[#D57429]">✦</span> Featured Listings <span className="text-[#D57429]">✦</span>
           </h2>
-          <Link href="/listings" className="text-sm text-[#0F4041] font-medium hover:underline flex items-center gap-1">
-            View All <ChevronRight className="h-4 w-4" />
-          </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {listings.map((listing) => {
-            const images = JSON.parse(listing.images || "[]") as string[];
-            const imageUrl = images[listing.featuredImageIndex] || "/placeholder.svg";
-            return (
-              <Link key={listing.id} href={`/listings/${listing.slug}`} className="group block">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F0EB]">
-                  <Image
-                    src={imageUrl}
-                    alt={listing.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    unoptimized
-                  />
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <WishlistButton
-                      listingId={listing.id}
-                      className="h-8 w-8 bg-white/90 hover:bg-white rounded-full shadow-sm"
-                    />
+        <div className="relative px-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {listings.map((listing, index) => {
+              const images = JSON.parse(listing.images || "[]") as string[];
+              const imageUrl = images[listing.featuredImageIndex] || "/placeholder.svg";
+              const isFirst = index === 0;
+              return (
+                <Link key={listing.id} href={`/listings/${listing.slug}`} className="group block">
+                  <div className="overflow-hidden">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F0EB]">
+                      <Image
+                        src={imageUrl}
+                        alt={listing.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    </div>
+                    <div className="pt-3 px-1 pb-3 space-y-1.5 bg-white">
+                      <p className="font-medium text-sm text-[#0F0D1A] line-clamp-2 leading-snug">{listing.title}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-[#0F4041] font-bold text-sm">$ {listing.price.toFixed(2)}</p>
+                        {listing.originalPrice && (
+                          <p className="text-xs text-[#951E45] line-through">$ {listing.originalPrice.toFixed(2)}</p>
+                        )}
+                      </div>
+                      {isFirst ? (
+                        <AddToCartButton
+                          listingId={listing.id}
+                          className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none"
+                        />
+                      ) : (
+                        <AddToCartButton
+                          listingId={listing.id}
+                          iconOnly
+                          size="icon"
+                          className="w-10 h-9 bg-[#0F4041] hover:bg-[#0a3334] text-white rounded-none"
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="pt-3 pb-1 space-y-1.5 bg-white px-2 pb-3">
-                  <p className="font-medium text-sm text-[#0F0D1A] line-clamp-1">{listing.title}</p>
-                  <p className="text-[#0F4041] font-bold text-sm">$ {listing.price.toFixed(2)}</p>
-                  <AddToCartButton
-                    listingId={listing.id}
-                    className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none mt-1"
-                  />
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
+          </div>
+          <button className="absolute left-0 top-[45%] -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button className="absolute right-0 top-[45%] -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </div>
       </section>
 
       {/* ── EXPLORE BY CATEGORY ───────────────────────────────── */}
       <section className="bg-[#FAF8F5] py-14">
         <div className="mx-auto max-w-[1310px] px-4">
-          <div className="text-center mb-4">
-            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center justify-center gap-2">
+          <div className="text-center mb-3">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
               <span className="text-[#D57429]">✦</span> Explore by Category <span className="text-[#D57429]">✦</span>
             </h2>
-            <p className="text-[#403D3D] mt-2 max-w-xl mx-auto text-sm leading-relaxed">
+            <p className="text-[#403D3D] mt-2 max-w-2xl mx-auto text-sm leading-relaxed">
               Save money and be sustainable by shopping pre-loved South Asian clothing, jewellery, accessories and decoration.
             </p>
           </div>
-          <div className="relative mt-8">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="relative mt-8 px-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {subCategories.map((cat) => (
                 <Link key={cat.id} href={`/categories/${cat.slug}`} className="group block">
-                  <div className="relative aspect-square overflow-hidden bg-[#E5E0D8]">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-[#E5E0D8]">
                     <Image
                       src={cat.imageUrl || "/placeholder.svg"}
                       alt={cat.name}
@@ -358,24 +371,24 @@ export default async function HomePage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-2.5 text-center">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
                       <p className="text-white font-semibold text-sm">{cat.name}</p>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
-            <button className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+            <button className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <button className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
+            <button className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-12 bg-[#F4F6F5] flex items-center justify-center hover:bg-white shadow-sm z-10">
               <ChevronRight className="h-5 w-5" />
             </button>
           </div>
           <div className="text-center mt-8">
             <Link href="/categories">
-              <Button variant="outline" className="border-[#0F4041] text-[#0F4041] hover:bg-[#0F4041] hover:text-white px-10 h-11 rounded-none text-sm font-semibold tracking-wider">
+              <Button className="border border-[#0F4041] bg-[#0F4041] text-white hover:bg-[#0a3334] px-12 h-11 rounded-none text-sm font-semibold tracking-widest">
                 VIEW ALL
               </Button>
             </Link>
@@ -384,68 +397,70 @@ export default async function HomePage() {
       </section>
 
       {/* ── EXPLORE BY COUNTRY ────────────────────────────────── */}
-      <section className="mx-auto max-w-[1310px] px-4 py-14">
-        <div className="text-center mb-4">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center justify-center gap-2">
-            <span className="text-[#D57429]">✦</span> Explore by Country <span className="text-[#D57429]">✦</span>
-          </h2>
-          <p className="text-[#403D3D] mt-2 max-w-xl mx-auto text-sm leading-relaxed">
-            Explore 4000+ pre-loved South Asian fashion and accessories. Now available in Australia, United States, Canada, United Kingdom and New Zealand.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
-          {countries.map((country) => (
-            <Link key={country.name} href={`/search?country=${country.slug}`} className="group block">
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#E5E0D8]">
-                <Image
-                  src={country.image}
-                  alt={country.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  unoptimized
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
-                  <p className="text-white font-semibold">{country.name}</p>
+      <section className="bg-[#FFF2F0] py-14">
+        <div className="mx-auto max-w-[1310px] px-4">
+          <div className="text-center mb-4">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
+              <span className="text-[#D57429]">✦</span> Explore by Country <span className="text-[#D57429]">✦</span>
+            </h2>
+            <p className="text-[#403D3D] mt-2 max-w-2xl mx-auto text-sm leading-relaxed">
+              Explore 4000+ pre-loved South Asian fashion and accessories. Now available in Australia, United States, Canada, United Kingdom and New Zealand.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-8">
+            {countries.map((country) => (
+              <Link key={country.name} href={`/search?country=${country.slug}`} className="group block">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E5E0D8]">
+                  <Image
+                    src={country.image}
+                    alt={country.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
+                    <p className="text-white font-semibold text-sm">{country.name}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/search">
+              <Button className="border border-[#0F4041] bg-[#0F4041] text-white hover:bg-[#0a3334] px-12 h-11 rounded-none text-sm font-semibold tracking-widest">
+                VIEW ALL
+              </Button>
             </Link>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Link href="/search">
-            <Button variant="outline" className="border-[#0F4041] text-[#0F4041] hover:bg-[#0F4041] hover:text-white px-10 h-11 rounded-none text-sm font-semibold tracking-wider">
-              VIEW ALL
-            </Button>
-          </Link>
+          </div>
         </div>
       </section>
 
       {/* ── CUSTOMER STORIES ──────────────────────────────────── */}
-      <section className="bg-[#FFF2F0] py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-[1310px] px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] flex items-center justify-center gap-2">
+          <div className="text-center mb-10">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
               <span className="text-[#D57429]">✦</span> Customer Stories <span className="text-[#D57429]">✦</span>
             </h2>
             <p className="text-[#403D3D] text-sm mt-1">Stories from the People Who Trust Us</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-white border border-[#E5E7EB] p-6 flex gap-4">
-                <div className="w-14 h-14 rounded-full overflow-hidden shrink-0 border-2 border-[#D57429]">
-                  <Image src={t.image} alt={t.name} width={56} height={56} className="object-cover w-full h-full" unoptimized />
+              <div key={i} className="border border-[#E5E7EB] p-5 flex gap-5 items-start">
+                <div className="w-[100px] h-[120px] shrink-0 overflow-hidden">
+                  <Image
+                    src={t.image}
+                    alt={t.name}
+                    width={100}
+                    height={120}
+                    className="object-cover w-full h-full"
+                    unoptimized
+                  />
                 </div>
-                <div className="space-y-2">
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, s) => (
-                      <svg key={s} className="w-3.5 h-3.5 text-[#D57429]" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-sm text-[#403D3D] italic leading-relaxed">&quot;{t.text}&quot;</p>
-                  <p className="text-sm font-semibold text-[#0F0D1A]">— {t.name}</p>
+                <div className="flex-1 space-y-3">
+                  <p className="text-sm text-[#403D3D] leading-relaxed">{t.text}</p>
+                  <p className="text-sm font-bold text-[#0F0D1A]">{t.name}</p>
                 </div>
               </div>
             ))}
@@ -459,21 +474,19 @@ export default async function HomePage() {
       </section>
 
       {/* ── REDISCOVER ELEGANCE ───────────────────────────────── */}
-      <section className="mx-auto max-w-[1310px] px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="relative overflow-hidden aspect-[4/3]">
-            <Image src={ci.featureNecklace} alt="South Asian Jewellery" fill className="object-cover" unoptimized />
-          </div>
-          <div className="space-y-5">
-            <p className="text-[#D57429] text-xs font-semibold tracking-widest uppercase">Our Story</p>
-            <h2 className="text-[28px] md:text-[36px] font-bold text-[#0F0D1A] leading-tight">
-              Rediscover Elegance Through Pre-Loved South Asian Wear
-            </h2>
-            <p className="text-[#403D3D] text-sm leading-relaxed">
-              Culture Closet is a leading marketplace for pre-loved South Asian fashion and decor in Australia, Canada, New Zealand, United Kingdom and United States. Every piece carries a story — and now it can carry yours.
-            </p>
+      <section className="py-16">
+        <div className="mx-auto max-w-[860px] px-4 text-center">
+          <h2 className="text-[26px] md:text-[36px] font-bold text-[#951E45] font-serif leading-snug inline-flex items-center gap-3 flex-wrap justify-center">
+            <span className="text-[#D57429] shrink-0">✦</span>
+            Rediscover Elegance Through Pre-Loved South Asian Wear
+            <span className="text-[#D57429] shrink-0">✦</span>
+          </h2>
+          <p className="text-[#403D3D] text-sm leading-relaxed mt-6 max-w-3xl mx-auto">
+            Culture Closet is a leading marketplace for pre-loved South Asian fashion and decor in Australia, Canada, New Zealand, United Kingdom and United States. Every piece carries a story — and now it can carry yours.
+          </p>
+          <div className="mt-8">
             <Link href="/about">
-              <Button className="bg-[#D57429] hover:bg-[#c06524] text-white px-8 h-11 rounded-none text-sm font-semibold tracking-wider mt-2">
+              <Button className="bg-[#D57429] hover:bg-[#c06524] text-white px-10 h-11 rounded-none text-sm font-semibold tracking-widest">
                 READ OUR FULL STORY
               </Button>
             </Link>

@@ -3,11 +3,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WishlistButton } from "@/components/wishlist-button";
-import { ArrowLeft, Check, MessageSquare, Star, ChevronDown, ShoppingCart } from "lucide-react";
+import { AddToCartButton } from "@/components/add-to-cart-button";
+import { ArrowLeft, Check, MessageSquare, Star, ChevronDown } from "lucide-react";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -85,6 +85,12 @@ export default async function ListingPage({ params }: Props) {
               className="object-cover"
               preload
             />
+            <div className="absolute top-3 right-3">
+              <WishlistButton
+                listingId={listing.id}
+                className="h-9 w-9 bg-white/90 hover:bg-white rounded-full shadow-sm border border-[#E5E7EB]"
+              />
+            </div>
           </div>
           {images.length > 1 && (
             <div className="flex gap-2 overflow-x-auto">
@@ -155,11 +161,10 @@ export default async function ListingPage({ params }: Props) {
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3">
-            <Button className="flex-1 bg-[#0F4041] hover:bg-[#0a3334] text-white h-[42px] rounded-none text-sm">
+          <div className="space-y-3">
+            <Button className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white h-[42px] rounded-none text-sm font-semibold tracking-wide">
               Buy now
             </Button>
-            <WishlistButton listingId={listing.id} className="h-[42px] w-[42px] border border-[#E5E7EB] rounded-none hover:bg-[#F7F7F7]" />
           </div>
           <Link href={`/messages?user=${listing.seller.id}&listing=${listing.id}`}>
             <Button variant="outline" className="w-full gap-2 h-[42px] rounded-none border-[#E5E7EB] text-[#0F0D1A] hover:bg-[#F7F7F7]">
@@ -299,40 +304,34 @@ export default async function ListingPage({ params }: Props) {
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6 text-[#0F0D1A]">More Like This</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-            {relatedListings.map((item, index) => {
+            {relatedListings.map((item) => {
               const itemImages = JSON.parse(item.images || "[]");
               const itemImage = itemImages[item.featuredImageIndex] || "/placeholder.svg";
-              const isFirst = index === 0;
               return (
-                <Link key={item.id} href={`/listings/${item.slug}`}>
-                  <Card className="group overflow-hidden border-0 shadow-none hover:shadow-md transition-all rounded-none">
-                    <CardContent className="p-0">
-                      <div className="relative aspect-[3/4] overflow-hidden border border-[#F1F5F9]">
-                        <Image
-                          src={itemImage}
-                          alt={item.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="p-3 space-y-2 bg-white">
-                        <h3 className="font-medium text-sm text-[#0F0D1A] line-clamp-1">{item.title}</h3>
-                        <p className="text-[#0F4041] font-semibold">$ {item.price.toFixed(2)}</p>
-                        {isFirst ? (
-                          <Button className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none">
-                            Add to Cart
-                          </Button>
-                        ) : (
-                          <Button
-                            size="icon"
-                            className="w-10 h-9 bg-[#0F4041] hover:bg-[#0a3334] text-white rounded-none"
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                          </Button>
+                <Link key={item.id} href={`/listings/${item.slug}`} className="group block">
+                  <div className="overflow-hidden hover:shadow-md transition-all">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F0EB]">
+                      <Image
+                        src={itemImage}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-3 space-y-1.5 bg-white">
+                      <h3 className="font-medium text-sm text-[#0F0D1A] line-clamp-2 leading-snug">{item.title}</h3>
+                      <div className="flex items-center gap-2">
+                        <p className="text-[#0F4041] font-bold text-sm">$ {item.price.toFixed(2)}</p>
+                        {item.originalPrice && (
+                          <p className="text-xs text-[#951E45] line-through">$ {item.originalPrice.toFixed(2)}</p>
                         )}
                       </div>
-                    </CardContent>
-                  </Card>
+                      <AddToCartButton
+                        listingId={item.id}
+                        className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none"
+                      />
+                    </div>
+                  </div>
                 </Link>
               );
             })}

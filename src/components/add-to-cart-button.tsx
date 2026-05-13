@@ -9,9 +9,10 @@ interface AddToCartButtonProps {
   listingId: string;
   className?: string;
   size?: "default" | "sm" | "lg" | "icon";
+  iconOnly?: boolean;
 }
 
-export function AddToCartButton({ listingId, className, size = "sm" }: AddToCartButtonProps) {
+export function AddToCartButton({ listingId, className, size = "sm", iconOnly = false }: AddToCartButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -55,15 +56,9 @@ export function AddToCartButton({ listingId, className, size = "sm" }: AddToCart
       variant={added ? "outline" : "default"}
     >
       {added ? (
-        <>
-          <Check className="h-3 w-3 mr-1" />
-          Added
-        </>
+        iconOnly ? <Check className="h-4 w-4" /> : <><Check className="h-3 w-3 mr-1" />Added</>
       ) : (
-        <>
-          <ShoppingBag className="h-3 w-3 mr-1" />
-          {isLoading ? "Adding..." : "Add to Cart"}
-        </>
+        iconOnly ? <ShoppingBag className="h-4 w-4" /> : <><ShoppingBag className="h-3 w-3 mr-1" />{isLoading ? "Adding..." : "Add to Cart"}</>
       )}
     </Button>
   );

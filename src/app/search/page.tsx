@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { WishlistButton } from "@/components/wishlist-button";
@@ -84,28 +83,31 @@ export default async function SearchPage({ searchParams }: Props) {
             const images = JSON.parse(listing.images || "[]");
             const imageUrl = images[listing.featuredImageIndex] || "/placeholder.svg";
             return (
-              <Link key={listing.id} href={`/listings/${listing.slug}`}>
-                <Card className="group overflow-hidden rounded-none border-[#E5E7EB] hover:shadow-md transition-all">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-[3/4] overflow-hidden">
-                      <Image
-                        src={imageUrl}
-                        alt={listing.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <WishlistButton listingId={listing.id} className="h-8 w-8 bg-white/80 hover:bg-white rounded-full" />
-                      </div>
+              <Link key={listing.id} href={`/listings/${listing.slug}`} className="group block">
+                <div className="overflow-hidden hover:shadow-md transition-all">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F0EB]">
+                    <Image
+                      src={imageUrl}
+                      alt={listing.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <WishlistButton listingId={listing.id} className="h-8 w-8 bg-white/80 hover:bg-white rounded-full" />
                     </div>
-                    <div className="p-3 space-y-1">
-                      <h3 className="font-medium text-sm line-clamp-1">{listing.title}</h3>
-                      <p className="text-xs text-[#403D3D]">{listing.category.name}</p>
-                      <p className="text-[#0F4041] font-semibold">${listing.price.toFixed(2)}</p>
-                      <AddToCartButton listingId={listing.id} className="w-full rounded-none bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs" />
+                  </div>
+                  <div className="p-3 space-y-1.5 bg-white">
+                    <h3 className="font-medium text-sm text-[#0F0D1A] line-clamp-2 leading-snug">{listing.title}</h3>
+                    <p className="text-xs text-[#403D3D]">{listing.category.name}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-[#0F4041] font-bold text-sm">$ {listing.price.toFixed(2)}</p>
+                      {listing.originalPrice && (
+                        <p className="text-xs text-[#951E45] line-through">$ {listing.originalPrice.toFixed(2)}</p>
+                      )}
                     </div>
-                  </CardContent>
-                </Card>
+                    <AddToCartButton listingId={listing.id} className="w-full rounded-none bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9" />
+                  </div>
+                </div>
               </Link>
             );
           })}

@@ -3,10 +3,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "@/components/add-to-cart-button";
-import { Heart, ArrowLeft, SlidersHorizontal, ShoppingCart } from "lucide-react";
+import { Heart, ArrowLeft, SlidersHorizontal } from "lucide-react";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -89,48 +88,41 @@ export default async function CategoryPage({ params }: Props) {
         ) : (
           <>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-              {category.listings.map((listing, index) => {
+              {category.listings.map((listing) => {
                 const images = JSON.parse(listing.images || "[]");
                 const imageUrl = images[listing.featuredImageIndex] || "/placeholder.svg";
-                const isFirst = index === 0;
                 return (
-                  <Link key={listing.id} href={`/listings/${listing.slug}`}>
-                    <Card className="group overflow-hidden border-0 shadow-none hover:shadow-md transition-all rounded-none">
-                      <CardContent className="p-0">
-                        <div className="relative aspect-[3/4] overflow-hidden border border-[#F1F5F9]">
-                          <Image
-                            src={imageUrl}
-                            alt={listing.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            className="absolute top-2 right-2 h-8 w-8 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <Heart className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <div className="p-3 space-y-2 bg-white">
-                          <h3 className="font-medium text-sm text-[#0F0D1A] line-clamp-1">{listing.title}</h3>
-                          <p className="text-[#0F4041] font-semibold">$ {listing.price.toFixed(2)}</p>
-                          {isFirst ? (
-                            <AddToCartButton
-                              listingId={listing.id}
-                              className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none"
-                            />
-                          ) : (
-                            <Button
-                              size="icon"
-                              className="w-10 h-9 bg-[#0F4041] hover:bg-[#0a3334] text-white rounded-none"
-                            >
-                              <ShoppingCart className="h-4 w-4" />
-                            </Button>
+                  <Link key={listing.id} href={`/listings/${listing.slug}`} className="group block">
+                    <div className="overflow-hidden hover:shadow-md transition-all">
+                      <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F0EB]">
+                        <Image
+                          src={imageUrl}
+                          alt={listing.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="absolute top-2 right-2 h-8 w-8 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Heart className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="p-3 space-y-1.5 bg-white">
+                        <h3 className="font-medium text-sm text-[#0F0D1A] line-clamp-2 leading-snug">{listing.title}</h3>
+                        <div className="flex items-center gap-2">
+                          <p className="text-[#0F4041] font-bold text-sm">$ {listing.price.toFixed(2)}</p>
+                          {listing.originalPrice && (
+                            <p className="text-xs text-[#951E45] line-through">$ {listing.originalPrice.toFixed(2)}</p>
                           )}
                         </div>
-                      </CardContent>
-                    </Card>
+                        <AddToCartButton
+                          listingId={listing.id}
+                          className="w-full bg-[#0F4041] hover:bg-[#0a3334] text-white text-xs h-9 rounded-none"
+                        />
+                      </div>
+                    </div>
                   </Link>
                 );
               })}
