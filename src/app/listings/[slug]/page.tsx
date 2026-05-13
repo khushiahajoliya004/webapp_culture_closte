@@ -83,7 +83,7 @@ export default async function ListingPage({ params }: Props) {
               alt={listing.title}
               fill
               className="object-cover"
-              priority
+              preload
             />
           </div>
           {images.length > 1 && (

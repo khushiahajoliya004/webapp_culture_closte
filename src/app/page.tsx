@@ -74,11 +74,11 @@ export default async function HomePage() {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative w-full overflow-hidden" style={{ height: 560 }}>
         <Image
-          src="/images/figma/hero-woman.png"
+          src={ci.heroSide5}
           alt="Culture Closet Hero"
           fill
           className="object-cover object-center"
-          priority
+          preload
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
@@ -116,7 +116,7 @@ export default async function HomePage() {
           {/* Image side */}
           <div className="relative min-h-[460px] overflow-hidden">
             <Image
-              src={ci.sectionWoman}
+              src={ci.testimonial1}
               alt="Discover South Asian Fashion"
               fill
               className="object-cover object-top"

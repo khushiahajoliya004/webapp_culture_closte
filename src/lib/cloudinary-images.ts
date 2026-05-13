@@ -1,7 +1,7 @@
-const BASE = "/images/figma";
+const BASE = "https://res.cloudinary.com/dw2a5mbwh/image/upload/culture-closet";
 
 export const cloudinaryImages = {
-  logo: `${BASE}/logo.png`,
+  logo: `https://res.cloudinary.com/dw2a5mbwh/image/upload/culture-closet-logo_1_d3rdkq`,
   heroBanner: `${BASE}/hero-banner.png`,
   heroWoman: `${BASE}/hero-woman.png`,
   heroSide1: `${BASE}/hero-side-1.png`,
