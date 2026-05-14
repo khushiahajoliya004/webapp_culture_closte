@@ -2,19 +2,21 @@ import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
 async function main() {
+  const CDN = "https://res.cloudinary.com/dw2a5mbwh/image/upload/f_auto,q_auto/culture-closet";
+
   // Create categories
   const categories = [
-    { name: "Women", slug: "women", imageUrl: "/images/figma/cat-women.png", sortOrder: 1 },
-    { name: "Men", slug: "men", imageUrl: "/images/figma/cat-men.png", sortOrder: 2 },
-    { name: "Kids", slug: "kids", imageUrl: "/images/figma/cat-kids.png", sortOrder: 3 },
-    { name: "Navaratri Collection", slug: "navaratri-collection", imageUrl: "/images/figma/cat-navaratri.png", sortOrder: 4 },
-    { name: "Sarees", slug: "sarees", imageUrl: "/images/figma/cat-sarees.png", sortOrder: 5, parentId: "" },
-    { name: "Blouses", slug: "blouses", imageUrl: "/images/figma/cat-blouses.png", sortOrder: 6, parentId: "" },
-    { name: "Kurtis", slug: "kurtis", imageUrl: "/images/figma/cat-kurtis.png", sortOrder: 7, parentId: "" },
-    { name: "Jewellery", slug: "jewellery", imageUrl: "/images/figma/cat-jewellery.png", sortOrder: 8, parentId: "" },
-    { name: "Footwear", slug: "footwear", imageUrl: "/images/figma/cat-footwear.png", sortOrder: 9, parentId: "" },
-    { name: "Accessories", slug: "accessories", imageUrl: "/images/figma/cat-accessories.png", sortOrder: 10, parentId: "" },
-    { name: "Lehenga", slug: "lehenga", imageUrl: "/images/figma/cat-lehenga.png", sortOrder: 11, parentId: "" },
+    { name: "Women", slug: "women", imageUrl: `${CDN}/cat-women`, sortOrder: 1 },
+    { name: "Men", slug: "men", imageUrl: `${CDN}/cat-men`, sortOrder: 2 },
+    { name: "Kids", slug: "kids", imageUrl: `${CDN}/cat-kids`, sortOrder: 3 },
+    { name: "Navaratri Collection", slug: "navaratri-collection", imageUrl: `${CDN}/cat-navaratri`, sortOrder: 4 },
+    { name: "Sarees", slug: "sarees", imageUrl: `${CDN}/cat-sarees`, sortOrder: 5, parentId: "" },
+    { name: "Blouses", slug: "blouses", imageUrl: `${CDN}/cat-blouses`, sortOrder: 6, parentId: "" },
+    { name: "Kurtis", slug: "kurtis", imageUrl: `${CDN}/cat-kurtis`, sortOrder: 7, parentId: "" },
+    { name: "Jewellery", slug: "jewellery", imageUrl: `${CDN}/cat-jewellery`, sortOrder: 8, parentId: "" },
+    { name: "Footwear", slug: "footwear", imageUrl: `${CDN}/cat-footwear`, sortOrder: 9, parentId: "" },
+    { name: "Accessories", slug: "accessories", imageUrl: `${CDN}/cat-accessories`, sortOrder: 10, parentId: "" },
+    { name: "Lehenga", slug: "lehenga", imageUrl: `${CDN}/cat-lehenga`, sortOrder: 11, parentId: "" },
   ];
 
   const createdCategories: Record<string, string> = {};
@@ -84,6 +86,8 @@ async function main() {
     },
   });
 
+  const CDN_RAW = "https://res.cloudinary.com/dw2a5mbwh/image/upload/f_auto,q_auto";
+
   // Create sample listings
   const listings = [
     {
@@ -99,7 +103,7 @@ async function main() {
       occasion: JSON.stringify(["Festive", "Wedding Guest"]),
       countryOfOrigin: "India",
       countryLocation: "United States",
-      images: JSON.stringify(["/images/figma/product-saree-2.png"]),
+      images: JSON.stringify([`${CDN_RAW}/culture-closet/product-saree-2`]),
     },
     {
       title: "Baby Pink Lehenga",
@@ -114,7 +118,7 @@ async function main() {
       occasion: JSON.stringify(["Bridal", "Pre-wedding"]),
       countryOfOrigin: "India",
       countryLocation: "Canada",
-      images: JSON.stringify(["/images/figma/product-lehenga.png"]),
+      images: JSON.stringify([`${CDN_RAW}/culture-closet/product-lehenga`]),
     },
     {
       title: "Pink Satin Bridesmaid Skirt Set",
@@ -129,7 +133,7 @@ async function main() {
       occasion: JSON.stringify(["Wedding Party"]),
       countryOfOrigin: "India",
       countryLocation: "United Kingdom",
-      images: JSON.stringify(["/images/figma/listing-1.png"]),
+      images: JSON.stringify([`${CDN_RAW}/culture-closet/listing-1`]),
     },
     {
       title: "Black Embroidered Top Kurta",
@@ -144,7 +148,7 @@ async function main() {
       occasion: JSON.stringify(["Casual", "Festive"]),
       countryOfOrigin: "Pakistan",
       countryLocation: "Australia",
-      images: JSON.stringify(["/images/figma/product-kurta.png"]),
+      images: JSON.stringify([`${CDN_RAW}/Pasted_image_6_jks3ub`]),
     },
     {
       title: "Mehendi Lehenga with Kurta",
@@ -159,7 +163,7 @@ async function main() {
       occasion: JSON.stringify(["Pre-wedding", "Festive"]),
       countryOfOrigin: "India",
       countryLocation: "New Zealand",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1609234656388-0ff363383899?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify([`${CDN_RAW}/Pasted_image_15_uidre9`]),
     },
     {
       title: "Gold Temple Jewellery Set",
@@ -174,7 +178,7 @@ async function main() {
       occasion: JSON.stringify(["Bridal", "Festive", "Temple"]),
       countryOfOrigin: "India",
       countryLocation: "United States",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify([`${CDN_RAW}/Pasted_image_12_lecfpd`]),
     },
     {
       title: "Men's Cream Sherwani",
@@ -189,7 +193,7 @@ async function main() {
       occasion: JSON.stringify(["Wedding", "Reception"]),
       countryOfOrigin: "India",
       countryLocation: "Canada",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify([`${CDN_RAW}/culture-closet/cat-men`]),
     },
     {
       title: "Kids Traditional Lehenga Choli",
@@ -204,14 +208,14 @@ async function main() {
       occasion: JSON.stringify(["Festive", "Wedding"]),
       countryOfOrigin: "India",
       countryLocation: "Australia",
-      images: JSON.stringify(["https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&h=1000&fit=crop"]),
+      images: JSON.stringify([`${CDN_RAW}/culture-closet/cat-kids`]),
     },
   ];
 
   for (const listing of listings) {
     await prisma.listing.upsert({
       where: { slug: listing.slug },
-      update: {},
+      update: { images: listing.images, categoryId: listing.categoryId },
       create: {
         ...listing,
         sellerId: seller.id,

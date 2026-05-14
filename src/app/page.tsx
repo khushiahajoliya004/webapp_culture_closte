@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
@@ -53,11 +55,13 @@ const testimonials = [
   {
     text: "Culture Closet made it so easy to find a beautiful saree for my cousin's wedding. The seller was wonderful and the item was exactly as described. I'll definitely be shopping here again!",
     name: "Priya M.",
+    role: "Verified Buyer",
     image: ci.featureNecklace,
   },
   {
     text: "I sold my old lehenga in just two days! The process was so simple and I loved that it went to someone who would treasure it. Such a wonderful community.",
     name: "Ananya S.",
+    role: "Verified Seller",
     image: ci.sectionWoman,
   },
 ];
@@ -438,29 +442,32 @@ export default async function HomePage() {
 
       {/* ── CUSTOMER STORIES ──────────────────────────────────── */}
       <section className="bg-white py-16">
-        <div className="mx-auto max-w-[1310px] px-4">
+        <div className="mx-auto max-w-[960px] px-4">
           <div className="text-center mb-10">
-            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F0D1A] inline-flex items-center gap-3">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#951E45] font-serif inline-flex items-center gap-3">
               <span className="text-[#D57429]">✦</span> Customer Stories <span className="text-[#D57429]">✦</span>
             </h2>
             <p className="text-[#403D3D] text-sm mt-1">Stories from the People Who Trust Us</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-5">
             {testimonials.map((t, i) => (
               <div key={i} className="border border-[#E5E7EB] p-5 flex gap-5 items-start">
-                <div className="w-[100px] h-[120px] shrink-0 overflow-hidden">
+                <div className="shrink-0 w-[110px] h-[165px] overflow-hidden">
                   <Image
                     src={t.image}
                     alt={t.name}
-                    width={100}
-                    height={120}
+                    width={110}
+                    height={165}
                     className="object-cover w-full h-full"
                     unoptimized
                   />
                 </div>
-                <div className="flex-1 space-y-3">
-                  <p className="text-sm text-[#403D3D] leading-relaxed">{t.text}</p>
-                  <p className="text-sm font-bold text-[#0F0D1A]">{t.name}</p>
+                <div className="flex-1">
+                  <p className="text-[13px] text-[#403D3D] leading-relaxed">{t.text}</p>
+                  <div className="mt-4">
+                    <p className="text-[13px] text-[#403D3D] leading-snug">{t.name}</p>
+                    <p className="text-[13px] font-bold text-[#0F0D1A] leading-snug">{t.role}</p>
+                  </div>
                 </div>
               </div>
             ))}

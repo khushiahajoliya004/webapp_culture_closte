@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: culture-closet-web
+    runtime: docker
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: file:./prisma/dev.db
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false
