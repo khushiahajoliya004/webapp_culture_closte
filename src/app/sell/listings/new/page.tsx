@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -21,11 +21,18 @@ const conditions = [
 
 const deliveryMethods = ["SHIPPING", "PICKUP", "BOTH"];
 
+interface Category {
+  id: string;
+  name: string;
+  parentId: string | null;
+}
+
 export default function NewListingPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -44,6 +51,12 @@ export default function NewListingPage() {
     isNegotiable: false,
   });
 
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((data) => setCategories(data.categories || []));
+  }, []);
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
@@ -59,6 +72,7 @@ export default function NewListingPage() {
         const res = await fetch("/api/upload", { method: "POST", body: form });
         const data = await res.json();
         if (data.url) newImages.push(data.url);
+        else toast.error("Failed to upload image");
       } catch {
         toast.error("Failed to upload image");
       }
@@ -77,6 +91,11 @@ export default function NewListingPage() {
 
     if (images.length === 0) {
       toast.error("Please upload at least one image");
+      return;
+    }
+
+    if (!formData.categoryId) {
+      toast.error("Please select a category");
       return;
     }
 
@@ -110,8 +129,11 @@ export default function NewListingPage() {
     }
   };
 
+  const parentCategories = categories.filter((c) => !c.parentId);
+  const subCategories = categories.filter((c) => c.parentId);
+
   return (
-    <div className="mx-auto max-w-[1310px] px-4 py-8 max-w-3xl">
+    <div className="mx-auto max-w-3xl px-4 py-8">
       <div className="mb-6">
         <Link href="/sell/listings">
           <Button variant="ghost" size="sm" className="gap-1 rounded-none">
@@ -124,6 +146,7 @@ export default function NewListingPage() {
       <h1 className="text-2xl font-bold mb-8">Create New Listing</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Photos */}
         <Card className="rounded-none border-[#E5E7EB]">
           <CardContent className="p-6 space-y-4">
             <h2 className="font-semibold">Photos</h2>
@@ -141,51 +164,122 @@ export default function NewListingPage() {
                 </div>
               ))}
               <label className="w-24 h-24 rounded-md border-2 border-dashed border-[#E5E7EB] flex flex-col items-center justify-center cursor-pointer hover:bg-[#F7F7F7] transition-colors">
-                {uploading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Upload className="h-5 w-5 text-[#403D3D]" />}
-                <span className="text-xs text-[#403D3D] mt-1">{uploading ? "Uploading..." : "Add Photo"}</span>
-                <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
+                {uploading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <Upload className="h-5 w-5 text-[#403D3D]" />
+                )}
+                <span className="text-xs text-[#403D3D] mt-1">
+                  {uploading ? "Uploading..." : "Add Photo"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleImageUpload}
+                  disabled={uploading}
+                />
               </label>
             </div>
+            <p className="text-xs text-[#403D3D]">
+              Images are uploaded directly to Cloudinary. You can add multiple photos.
+            </p>
           </CardContent>
         </Card>
 
+        {/* Details */}
         <Card className="rounded-none border-[#E5E7EB]">
           <CardContent className="p-6 space-y-4">
             <h2 className="font-semibold">Details</h2>
 
             <div className="space-y-2">
               <Label htmlFor="title">Title *</Label>
-              <Input id="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} required className="rounded-none border-[#E5E7EB]" />
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+                className="rounded-none border-[#E5E7EB]"
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="description">Description *</Label>
-              <Textarea id="description" rows={4} className="rounded-none border-[#E5E7EB]" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required />
+              <Textarea
+                id="description"
+                rows={4}
+                className="rounded-none border-[#E5E7EB]"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                required
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="price">Price (USD) *</Label>
-                <Input id="price" type="number" min="0" step="0.01" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} required className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="price"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  required
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="originalPrice">Original Price</Label>
-                <Input id="originalPrice" type="number" min="0" step="0.01" value={formData.originalPrice} onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="originalPrice"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={formData.originalPrice}
+                  onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+              {/* Category dropdown */}
               <div className="space-y-2">
-                <Label htmlFor="categoryId">Category ID *</Label>
-                <Input id="categoryId" value={formData.categoryId} onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })} placeholder="e.g. cuid..." required className="rounded-none border-[#E5E7EB]" />
+                <Label htmlFor="categoryId">Category *</Label>
+                <select
+                  id="categoryId"
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  required
+                  className="flex h-9 w-full rounded-none border border-[#E5E7EB] bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                >
+                  <option value="">Select a category</option>
+                  {parentCategories.length > 0 && (
+                    <optgroup label="Main Categories">
+                      {parentCategories.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </optgroup>
+                  )}
+                  {subCategories.length > 0 && (
+                    <optgroup label="Sub Categories">
+                      {subCategories.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </optgroup>
+                  )}
+                </select>
               </div>
+
               <div className="space-y-2">
                 <Label htmlFor="condition">Condition</Label>
                 <select
                   id="condition"
                   value={formData.condition}
                   onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
-                  className="flex h-9 w-full rounded-none border border-[#E5E7EB] bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#403D3D] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="flex h-9 w-full rounded-none border border-[#E5E7EB] bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 >
                   {conditions.map((c) => (
                     <option key={c} value={c}>{c.replace(/_/g, " ")}</option>
@@ -197,38 +291,77 @@ export default function NewListingPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="size">Size</Label>
-                <Input id="size" value={formData.size} onChange={(e) => setFormData({ ...formData, size: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="size"
+                  value={formData.size}
+                  onChange={(e) => setFormData({ ...formData, size: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="primaryColor">Color</Label>
-                <Input id="primaryColor" value={formData.primaryColor} onChange={(e) => setFormData({ ...formData, primaryColor: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="primaryColor"
+                  value={formData.primaryColor}
+                  onChange={(e) => setFormData({ ...formData, primaryColor: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="occasion">Occasion (comma separated)</Label>
-              <Input id="occasion" value={formData.occasion} onChange={(e) => setFormData({ ...formData, occasion: e.target.value })} placeholder="Wedding, Festive, Casual" className="rounded-none border-[#E5E7EB]" />
+              <Input
+                id="occasion"
+                value={formData.occasion}
+                onChange={(e) => setFormData({ ...formData, occasion: e.target.value })}
+                placeholder="Wedding, Festive, Casual"
+                className="rounded-none border-[#E5E7EB]"
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="material">Material</Label>
-                <Input id="material" value={formData.material} onChange={(e) => setFormData({ ...formData, material: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="material"
+                  value={formData.material}
+                  onChange={(e) => setFormData({ ...formData, material: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="countryOfOrigin">Country of Origin</Label>
-                <Input id="countryOfOrigin" value={formData.countryOfOrigin} onChange={(e) => setFormData({ ...formData, countryOfOrigin: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="countryOfOrigin"
+                  value={formData.countryOfOrigin}
+                  onChange={(e) => setFormData({ ...formData, countryOfOrigin: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="countryLocation">Item Location</Label>
-                <Input id="countryLocation" value={formData.countryLocation} onChange={(e) => setFormData({ ...formData, countryLocation: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="countryLocation"
+                  value={formData.countryLocation}
+                  onChange={(e) => setFormData({ ...formData, countryLocation: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="shippingCost">Shipping Cost (USD)</Label>
-                <Input id="shippingCost" type="number" min="0" step="0.01" value={formData.shippingCost} onChange={(e) => setFormData({ ...formData, shippingCost: e.target.value })} className="rounded-none border-[#E5E7EB]" />
+                <Input
+                  id="shippingCost"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={formData.shippingCost}
+                  onChange={(e) => setFormData({ ...formData, shippingCost: e.target.value })}
+                  className="rounded-none border-[#E5E7EB]"
+                />
               </div>
             </div>
 
@@ -238,7 +371,7 @@ export default function NewListingPage() {
                 id="deliveryMethod"
                 value={formData.deliveryMethod}
                 onChange={(e) => setFormData({ ...formData, deliveryMethod: e.target.value })}
-                className="flex h-9 w-full rounded-none border border-[#E5E7EB] bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#403D3D] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="flex h-9 w-full rounded-none border border-[#E5E7EB] bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               >
                 {deliveryMethods.map((d) => (
                   <option key={d} value={d}>{d.replace(/_/g, " ")}</option>
@@ -262,11 +395,17 @@ export default function NewListingPage() {
         </Card>
 
         <div className="flex gap-4">
-          <Button type="submit" className="flex-1 bg-[#D57429] hover:bg-[#c06524] rounded-none" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            className="flex-1 bg-[#D57429] hover:bg-[#c06524] rounded-none"
+            disabled={isSubmitting || uploading}
+          >
             {isSubmitting ? "Creating..." : "Create Listing"}
           </Button>
           <Link href="/sell/listings">
-            <Button variant="outline" type="button" className="rounded-none">Cancel</Button>
+            <Button variant="outline" type="button" className="rounded-none">
+              Cancel
+            </Button>
           </Link>
         </div>
       </form>

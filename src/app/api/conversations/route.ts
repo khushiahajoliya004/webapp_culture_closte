@@ -3,38 +3,43 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export async function GET() {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const conversations = await prisma.conversation.findMany({
-    where: {
-      participants: {
-        some: { userId: session.user.id },
-      },
-    },
-    include: {
-      participants: {
-        include: {
-          user: {
-            select: { id: true, name: true, image: true },
-          },
+    const conversations = await prisma.conversation.findMany({
+      where: {
+        participants: {
+          some: { userId: session.user.id },
         },
       },
-      listing: {
-        select: { id: true, title: true, slug: true, images: true, featuredImageIndex: true },
+      include: {
+        participants: {
+          include: {
+            user: {
+              select: { id: true, name: true, image: true },
+            },
+          },
+        },
+        listing: {
+          select: { id: true, title: true, slug: true, images: true, featuredImageIndex: true },
+        },
+        messages: {
+          orderBy: { createdAt: "desc" },
+          take: 1,
+          select: { content: true, createdAt: true, senderId: true },
+        },
       },
-      messages: {
-        orderBy: { createdAt: "desc" },
-        take: 1,
-        select: { content: true, createdAt: true, senderId: true },
-      },
-    },
-    orderBy: { lastMessageAt: "desc" },
-  });
+      orderBy: { lastMessageAt: "desc" },
+    });
 
-  return NextResponse.json({ conversations });
+    return NextResponse.json({ conversations });
+  } catch (error) {
+    console.error("GET /api/conversations error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
 
 export async function POST(req: Request) {
@@ -52,30 +57,47 @@ export async function POST(req: Request) {
 
   const existing = await prisma.conversation.findFirst({
     where: {
-      listingId: listingId || undefined,
-      participants: {
-        every: {
-          userId: { in: [session.user.id, participantId] },
-        },
-      },
+      AND: [
+        { participants: { some: { userId: session.user.id } } },
+        { participants: { some: { userId: participantId } } },
+      ],
+      ...(listingId ? { listingId } : {}),
     },
   });
 
   let conversationId = existing?.id;
 
   if (!conversationId) {
-    const conversation = await prisma.conversation.create({
-      data: {
-        listingId: listingId || null,
-        participants: {
-          create: [
-            { userId: session.user.id },
-            { userId: participantId },
-          ],
+    try {
+      const conversation = await prisma.conversation.create({
+        data: {
+          listingId: listingId || null,
+          participants: {
+            create: [
+              { userId: session.user.id },
+              { userId: participantId },
+            ],
+          },
         },
-      },
-    });
-    conversationId = conversation.id;
+      });
+      conversationId = conversation.id;
+    } catch (e: any) {
+      if (e.code === "P2002") {
+        // Race condition — another request already created it, find it
+        const found = await prisma.conversation.findFirst({
+          where: {
+            AND: [
+              { participants: { some: { userId: session.user.id } } },
+              { participants: { some: { userId: participantId } } },
+            ],
+          },
+        });
+        if (!found) throw e;
+        conversationId = found.id;
+      } else {
+        throw e;
+      }
+    }
   }
 
   await prisma.message.create({
