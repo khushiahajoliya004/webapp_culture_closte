@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate Prisma client
+        run: npx prisma generate --no-engine
+
       - name: Build
         run: npx opennextjs-cloudflare build
         env:
