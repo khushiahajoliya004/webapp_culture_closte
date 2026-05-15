@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Generate Prisma client
-        run: npx prisma generate --no-engine
+        run: npx prisma generate --no-engine && rm -f node_modules/@prisma/client/runtime/query_engine_bg.*.wasm node_modules/.prisma/client/query_engine_bg.*.wasm
 
       - name: Build
         run: npx opennextjs-cloudflare build
