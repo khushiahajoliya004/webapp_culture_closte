@@ -1,6 +1,6 @@
 {
   "name": "culture-closet",
-  "account_id": "c7adb173656fa19fe3dba8be36547fef",
+  "account_id": "51eefdb1bdf49e3cfaf546febc8fd5d7",
   "compatibility_date": "2025-01-01",
   "compatibility_flags": ["nodejs_compat"],
   "main": ".open-next/worker.js",
