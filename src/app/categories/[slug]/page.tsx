@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "@/components/add-to-cart-button";
@@ -12,6 +12,7 @@ interface Props {
 }
 
 async function getCategory(slug: string) {
+  const prisma = await getPrisma();
   return prisma.category.findUnique({
     where: { slug },
     include: {

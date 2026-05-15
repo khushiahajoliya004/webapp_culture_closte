@@ -45,3 +45,5 @@ next-env.d.ts
 # local sqlite dev db
 *.db
 *.db-journal
+.open-next
+.wrangler

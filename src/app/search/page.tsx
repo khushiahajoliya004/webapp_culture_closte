@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AddToCartButton } from "@/components/add-to-cart-button";
@@ -14,6 +14,7 @@ interface Props {
 }
 
 async function searchListings(query: string) {
+  const prisma = await getPrisma();
   if (!query) return [];
   return prisma.listing.findMany({
     where: {

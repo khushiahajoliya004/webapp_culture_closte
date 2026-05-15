@@ -1,6 +1,6 @@
 {
   "name": "culture-closet",
-  "account_id": "51eefdb1bdf49e3cfaf546febc8fd5d7",
+  "account_id": "01aa4e62493810a75ab833f5d06678cd",
   "compatibility_date": "2025-01-01",
   "compatibility_flags": ["nodejs_compat"],
   "main": ".open-next/worker.js",
@@ -13,7 +13,16 @@
     {
       "binding": "DB",
       "database_name": "culture-closet-db",
-      "database_id": "17c1fb23-b36e-4099-8ccd-2fec1c13eed4"
+      "database_id": "685c5d1c-eed8-4b12-9d50-7fb7000c8730",
+      "migrations_dir": "prisma/migrations-d1"
     }
-  ]
+  ],
+  "vars": {
+    "NEXTAUTH_URL": "https://culture-closet.workers.dev"
+  }
+  // Secrets to set with `wrangler secret put`:
+  //   AUTH_SECRET
+  //   CLOUDINARY_CLOUD_NAME
+  //   CLOUDINARY_API_KEY
+  //   CLOUDINARY_API_SECRET
 }

@@ -1,5 +1,7 @@
-import { prisma } from "@/lib/db";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+
+const prisma = new PrismaClient();
 
 async function main() {
   const CDN = "https://res.cloudinary.com/dw2a5mbwh/image/upload/f_auto,q_auto/culture-closet";

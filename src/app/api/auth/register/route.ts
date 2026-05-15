@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
@@ -10,6 +10,7 @@ const registerSchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const prisma = await getPrisma();
   try {
     const body = await req.json();
     const parsed = registerSchema.safeParse(body);

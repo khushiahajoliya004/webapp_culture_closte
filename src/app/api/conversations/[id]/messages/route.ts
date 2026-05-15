@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export async function GET(_req: Request, { params }: Props) {
+  const prisma = await getPrisma();
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -45,6 +46,7 @@ export async function GET(_req: Request, { params }: Props) {
 }
 
 export async function POST(req: Request, { params }: Props) {
+  const prisma = await getPrisma();
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

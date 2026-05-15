@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 
 export async function GET() {
+  const prisma = await getPrisma();
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ items: [] }, { status: 401 });
@@ -25,6 +26,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const prisma = await getPrisma();
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -50,6 +52,7 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+  const prisma = await getPrisma();
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

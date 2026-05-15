@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 
 const resetTokens = new Map<string, { email: string; expires: number }>();
 
 export async function POST(req: Request) {
+  const prisma = await getPrisma();
   try {
     const { email } = await req.json();
 
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
 }
 
 export async function PATCH(req: Request) {
+  const prisma = await getPrisma();
   try {
     const { token, password } = await req.json();
 

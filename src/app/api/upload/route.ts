@@ -22,17 +22,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    let binary = "";
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    const base64 = btoa(binary);
+    const dataUri = `data:${file.type || "application/octet-stream"};base64,${base64}`;
 
-    const result = await new Promise<{ secure_url: string }>((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        { folder: "culture-closet/listings" },
-        (error, result) => {
-          if (error || !result) return reject(error);
-          resolve(result);
-        }
-      ).end(buffer);
+    const result = await cloudinary.uploader.upload(dataUri, {
+      folder: "culture-closet/listings",
     });
 
     return NextResponse.json({ url: result.secure_url });

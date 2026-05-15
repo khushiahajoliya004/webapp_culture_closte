@@ -70,11 +70,15 @@ export default function AdminPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    type StatsResponse = Stats & { error?: string };
+    type UsersResponse = { users?: UserRow[] };
+    type ListingsResponse = { listings?: ListingRow[] };
+    type OrdersResponse = { orders?: OrderRow[] };
     Promise.all([
-      fetch("/api/admin/stats").then((r) => r.json()),
-      fetch("/api/admin/users").then((r) => r.json()),
-      fetch("/api/admin/listings").then((r) => r.json()),
-      fetch("/api/admin/orders").then((r) => r.json()),
+      fetch("/api/admin/stats").then((r) => r.json() as Promise<StatsResponse>),
+      fetch("/api/admin/users").then((r) => r.json() as Promise<UsersResponse>),
+      fetch("/api/admin/listings").then((r) => r.json() as Promise<ListingsResponse>),
+      fetch("/api/admin/orders").then((r) => r.json() as Promise<OrdersResponse>),
     ])
       .then(([s, u, l, o]) => {
         if (s.error) {

@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { WishlistButton } from "@/components/wishlist-button";
@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 async function getCategories() {
+  const prisma = await getPrisma();
   return prisma.category.findMany({
     where: { parentId: null },
     orderBy: { sortOrder: "asc" },
@@ -27,6 +28,7 @@ async function getCategories() {
 }
 
 async function getSubCategories() {
+  const prisma = await getPrisma();
   return prisma.category.findMany({
     where: { parentId: { not: null } },
     orderBy: { sortOrder: "asc" },
@@ -35,6 +37,7 @@ async function getSubCategories() {
 }
 
 async function getFeaturedListings() {
+  const prisma = await getPrisma();
   return prisma.listing.findMany({
     where: { status: "ACTIVE" },
     orderBy: { createdAt: "desc" },

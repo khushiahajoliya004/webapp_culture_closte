@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/db";
+import { getPrisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,6 +14,7 @@ interface Props {
 }
 
 async function getListing(slug: string) {
+  const prisma = await getPrisma();
   return prisma.listing.findUnique({
     where: { slug },
     include: {
@@ -24,6 +25,7 @@ async function getListing(slug: string) {
 }
 
 async function getRelatedListings(categoryId: string, excludeId: string) {
+  const prisma = await getPrisma();
   return prisma.listing.findMany({
     where: {
       categoryId,
@@ -36,6 +38,7 @@ async function getRelatedListings(categoryId: string, excludeId: string) {
 }
 
 async function getReviews(listingId: string) {
+  const prisma = await getPrisma();
   return prisma.review.findMany({
     where: { listingId },
     include: {
