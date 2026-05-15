@@ -11,18 +11,14 @@ function getD1Binding(): D1Database | undefined {
 }
 
 function createPrismaClient(): PrismaClient {
-  if (process.env.NODE_ENV !== "production") {
-    return new PrismaClient({ log: ["query", "error", "warn"] });
-  }
-
   const db = getD1Binding();
   if (db) {
     const adapter = new PrismaD1(db);
     return new PrismaClient({ adapter });
   }
 
-  console.error("[db] D1 binding unavailable");
-  throw new Error("D1 binding unavailable");
+  // Local development fallback (no Cloudflare context)
+  return new PrismaClient({ log: ["query", "error", "warn"] });
 }
 
 export const prisma: PrismaClient = new Proxy({} as PrismaClient, {
