@@ -55,7 +55,7 @@ export default function SellerListingsPage() {
 
   return (
     <div className="mx-auto max-w-[1310px] px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold">My Listings</h1>
           <p className="text-[#403D3D]">Manage your active and sold items</p>
@@ -112,7 +112,7 @@ export default function SellerListingsPage() {
                       <p className="text-[#D57429] font-semibold">${listing.price.toFixed(2)}</p>
                       <p className="text-xs text-[#403D3D]">{listing._count.orders} orders</p>
                     </div>
-                    <div className="flex flex-col gap-2 shrink-0">
+                    <div className="flex flex-row sm:flex-col gap-2 shrink-0">
                       <Link href={`/listings/${listing.slug}`}>
                         <Button variant="outline" size="sm" className="gap-1 rounded-none">
                           <Eye className="h-3 w-3" />

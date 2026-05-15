@@ -216,7 +216,7 @@ export default function NewListingPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="price">Price (USD) *</Label>
                 <Input
@@ -244,7 +244,7 @@ export default function NewListingPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Category dropdown */}
               <div className="space-y-2">
                 <Label htmlFor="categoryId">Category *</Label>
@@ -288,7 +288,7 @@ export default function NewListingPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="size">Size</Label>
                 <Input
@@ -320,7 +320,7 @@ export default function NewListingPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="material">Material</Label>
                 <Input
@@ -341,7 +341,7 @@ export default function NewListingPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="countryLocation">Item Location</Label>
                 <Input

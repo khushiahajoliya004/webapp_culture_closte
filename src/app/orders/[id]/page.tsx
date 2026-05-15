@@ -108,7 +108,7 @@ export default function OrderDetailPage() {
         </Link>
       </div>
 
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex flex-wrap items-center gap-3 mb-8">
         <h1 className="text-2xl font-bold">Order #{order.id.slice(-8).toUpperCase()}</h1>
         <Badge variant="secondary" className={statusColors[order.status] || "bg-gray-100"}>
           {order.status}

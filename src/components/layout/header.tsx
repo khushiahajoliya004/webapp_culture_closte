@@ -53,13 +53,13 @@ export function Header() {
       {/* Top bar */}
       <div className="border-b border-[#E5E7EB]">
         <div className="mx-auto max-w-[1310px] px-4">
-          <div className="flex items-center justify-between h-[90px] gap-4">
+          <div className="flex items-center justify-between h-16 md:h-[90px] gap-4">
             {/* Logo */}
             <Logo size="md" />
 
             {/* Search */}
             <form onSubmit={handleSearch} className="hidden md:flex flex-1 justify-center">
-              <div className="relative w-[319px] h-[41px]">
+              <div className="relative w-full max-w-[319px] h-[41px]">
                 <Input
                   type="search"
                   placeholder="Search items..."
@@ -78,7 +78,7 @@ export function Header() {
             </form>
 
             {/* Actions */}
-            <div className="flex items-center h-[42px]">
+            <div className="flex items-center h-9 md:h-[42px]">
               <Button
                 variant="ghost"
                 size="sm"
@@ -88,70 +88,73 @@ export function Header() {
                 GET APP
               </Button>
 
-              <div className="hidden lg:flex items-center h-full ml-2">
-                <Link href="/wishlist">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="relative h-full w-[42px] rounded-none hover:bg-gray-50"
-                  >
-                    <Heart className="h-5 w-5 text-[#0F0D1A]" />
-                    <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
-                  </Button>
-                </Link>
-
-                <div className="w-px h-full bg-[#E5E7EB]" />
-
-                <Link href="/cart">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="relative h-full w-[42px] rounded-none hover:bg-gray-50"
-                  >
-                    <ShoppingCart className="h-5 w-5 text-[#0F0D1A]" />
-                    <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
-                  </Button>
-                </Link>
-
-                <div className="w-px h-full bg-[#E5E7EB]" />
-
+              {/* Mobile: login only when logged out; cart+wishlist+profile when logged in */}
+              {/* Desktop: always show all */}
+              <div className="flex items-center h-full ml-2">
                 {session?.user ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger
-                      className="flex items-center h-full rounded-none gap-2 px-3 hover:bg-gray-50 text-sm text-[#0F0D1A]"
-                    >
-                      <User className="h-4 w-4 text-[#0F0D1A]" />
-                      <span className="hidden sm:inline">
-                        {session.user.name || "Account"}
-                      </span>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem onClick={() => window.location.href = "/account"}>My Account</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => window.location.href = "/orders"}>My Orders</DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => window.location.href = "/wishlist"}>Wishlist</DropdownMenuItem>
-                      {session.user.role === "SELLER" && (
-                        <DropdownMenuItem onClick={() => window.location.href = "/sell/dashboard"}>Seller Dashboard</DropdownMenuItem>
-                      )}
-                      {session.user.role === "ADMIN" && (
-                        <DropdownMenuItem onClick={() => window.location.href = "/admin"}>Admin Panel</DropdownMenuItem>
-                      )}
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => signOut()} className="text-destructive">
-                        Sign Out
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <>
+                    {/* Wishlist — mobile + desktop */}
+                    <Link href="/wishlist">
+                      <Button variant="ghost" size="icon" className="relative h-full w-[38px] md:w-[42px] rounded-none hover:bg-gray-50">
+                        <Heart className="h-5 w-5 text-[#0F0D1A]" />
+                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
+                      </Button>
+                    </Link>
+                    <div className="w-px h-full bg-[#E5E7EB]" />
+                    {/* Cart — mobile + desktop */}
+                    <Link href="/cart">
+                      <Button variant="ghost" size="icon" className="relative h-full w-[38px] md:w-[42px] rounded-none hover:bg-gray-50">
+                        <ShoppingCart className="h-5 w-5 text-[#0F0D1A]" />
+                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
+                      </Button>
+                    </Link>
+                    <div className="w-px h-full bg-[#E5E7EB]" />
+                    {/* Profile — mobile + desktop */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="flex items-center h-full rounded-none gap-2 px-2 md:px-3 hover:bg-gray-50 text-sm text-[#0F0D1A]">
+                        <User className="h-4 w-4 text-[#0F0D1A]" />
+                        <span className="hidden md:inline">{session.user.name || "Account"}</span>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuItem onClick={() => window.location.href = "/account"}>My Account</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => window.location.href = "/orders"}>My Orders</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => window.location.href = "/wishlist"}>Wishlist</DropdownMenuItem>
+                        {session.user.role === "SELLER" && (
+                          <DropdownMenuItem onClick={() => window.location.href = "/sell/dashboard"}>Seller Dashboard</DropdownMenuItem>
+                        )}
+                        {session.user.role === "ADMIN" && (
+                          <DropdownMenuItem onClick={() => window.location.href = "/admin"}>Admin Panel</DropdownMenuItem>
+                        )}
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => signOut()} className="text-destructive">Sign Out</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </>
                 ) : (
-                  <Link href="/auth/login">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-full rounded-none gap-2 px-3 hover:bg-gray-50"
-                    >
-                      <User className="h-4 w-4 text-[#0F0D1A]" />
-                      <span className="hidden sm:inline text-sm text-[#0F0D1A]">Login</span>
-                    </Button>
-                  </Link>
+                  <>
+                    {/* Desktop-only wishlist + cart when logged out */}
+                    <Link href="/wishlist" className="hidden lg:block">
+                      <Button variant="ghost" size="icon" className="relative h-full w-[42px] rounded-none hover:bg-gray-50">
+                        <Heart className="h-5 w-5 text-[#0F0D1A]" />
+                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
+                      </Button>
+                    </Link>
+                    <div className="hidden lg:block w-px h-full bg-[#E5E7EB]" />
+                    <Link href="/cart" className="hidden lg:block">
+                      <Button variant="ghost" size="icon" className="relative h-full w-[42px] rounded-none hover:bg-gray-50">
+                        <ShoppingCart className="h-5 w-5 text-[#0F0D1A]" />
+                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#D22027]" />
+                      </Button>
+                    </Link>
+                    <div className="hidden lg:block w-px h-full bg-[#E5E7EB]" />
+                    {/* Login — always visible */}
+                    <Link href="/auth/login">
+                      <Button variant="ghost" size="sm" className="h-full rounded-none gap-1 md:gap-2 px-2 md:px-3 hover:bg-gray-50">
+                        <User className="h-4 w-4 text-[#0F0D1A]" />
+                        <span className="text-xs md:text-sm text-[#0F0D1A]">Login</span>
+                      </Button>
+                    </Link>
+                  </>
                 )}
               </div>
 
@@ -231,6 +234,7 @@ export function Header() {
                 </li>
               ))}
             </ul>
+
           </div>
         </div>
       )}

@@ -109,7 +109,7 @@ function MessagesContent() {
   }
 
   return (
-    <div className="mx-auto max-w-[1310px] px-4 py-8 max-w-2xl">
+    <div className="mx-auto max-w-2xl px-4 py-8">
       <h1 className="text-2xl font-bold mb-8 text-[#0F0D1A]">Messages</h1>
 
       <div className="space-y-3">

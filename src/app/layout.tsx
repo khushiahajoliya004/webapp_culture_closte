@@ -37,11 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lora.variable} ${playfair.variable} ${roboto.variable} antialiased min-h-screen flex flex-col font-sans`}
+        className={`${lora.variable} ${playfair.variable} ${roboto.variable} antialiased min-h-screen flex flex-col font-sans w-full overflow-x-hidden`}
       >
         <Providers>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 w-full">{children}</main>
           <Footer />
         </Providers>
       </body>

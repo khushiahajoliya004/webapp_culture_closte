@@ -100,7 +100,7 @@ export default async function ListingPage({ params }: Props) {
               {images.map((img: string, idx: number) => (
                 <div
                   key={idx}
-                  className={`relative w-20 h-20 overflow-hidden shrink-0 border-2 ${
+                  className={`relative w-14 h-14 sm:w-20 sm:h-20 overflow-hidden shrink-0 border-2 ${
                     idx === listing.featuredImageIndex ? "border-[#951E45]" : "border-[#E5E7EB]"
                   }`}
                 >
@@ -188,28 +188,28 @@ export default async function ListingPage({ params }: Props) {
       {/* Tabs */}
       <div className="mt-12">
         <Tabs defaultValue="details">
-          <TabsList className="w-full justify-start rounded-none border-b border-[#E5E7EB] bg-transparent h-auto p-0 gap-0">
+          <TabsList className="w-full justify-start rounded-none border-b border-[#E5E7EB] bg-transparent h-auto p-0 gap-0 overflow-x-auto flex-nowrap">
             <TabsTrigger
               value="details"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A]"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-3 sm:px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A] text-xs sm:text-sm whitespace-nowrap shrink-0"
             >
               Details
             </TabsTrigger>
             <TabsTrigger
               value="location"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A]"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-3 sm:px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A] text-xs sm:text-sm whitespace-nowrap shrink-0"
             >
               Location
             </TabsTrigger>
             <TabsTrigger
               value="reviews"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A]"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-3 sm:px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A] text-xs sm:text-sm whitespace-nowrap shrink-0"
             >
               Reviews
             </TabsTrigger>
             <TabsTrigger
               value="seller"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A]"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#951E45] data-[state=active]:bg-transparent data-[state=active]:shadow-none px-3 sm:px-6 py-3 text-[#403D3D] data-[state=active]:text-[#0F0D1A] text-xs sm:text-sm whitespace-nowrap shrink-0"
             >
               About the owner
             </TabsTrigger>

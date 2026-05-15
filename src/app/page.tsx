@@ -77,32 +77,32 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="bg-[#faf8f5]">
+    <div className="bg-[#faf8f5] w-full">
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden" style={{ height: 560 }}>
+      <section className="relative w-full overflow-hidden h-[260px] sm:h-[380px] md:h-[560px]">
         <Image
           src={ci.heroSide5}
           alt="Culture Closet Hero"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[center_top]"
           preload
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-[1310px] px-6 h-full flex flex-col justify-center">
-          <p className="text-white/80 text-sm font-medium tracking-widest uppercase mb-3">
+          <p className="text-white/80 text-[10px] sm:text-sm font-medium tracking-widest uppercase mb-2 md:mb-3">
             Pre-loved South Asian Fashion
           </p>
-          <h1 className="text-white font-bold leading-tight text-[42px] md:text-[58px] lg:text-[66px] max-w-[560px]">
+          <h1 className="text-white font-bold leading-tight text-[22px] sm:text-[36px] md:text-[52px] lg:text-[66px] max-w-[90vw] md:max-w-[560px]">
             Celebrate Culture,<br />
             <span className="text-[#D57429]">Sustain Style</span>
           </h1>
-          <p className="text-white/85 mt-4 max-w-[460px] text-[15px] leading-relaxed">
+          <p className="text-white/85 mt-2 md:mt-4 max-w-[90vw] md:max-w-[460px] text-[11px] sm:text-sm md:text-[15px] leading-relaxed">
             From weddings to festive moments, find pre-loved South Asian fashion that carries stories, tradition, and elegance.
           </p>
-          <div className="mt-8">
+          <div className="mt-3 md:mt-8">
             <Link href="/categories">
-              <Button className="bg-[#951E45] hover:bg-[#7a1839] text-white px-10 py-5 h-auto text-sm font-semibold rounded-none tracking-wider">
+              <Button className="bg-[#951E45] hover:bg-[#7a1839] text-white px-6 md:px-10 py-3 md:py-5 h-auto text-xs md:text-sm font-semibold rounded-none tracking-wider">
                 SHOP NOW
               </Button>
             </Link>
@@ -121,7 +121,7 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[1310px] px-4 py-14">
         <div className="grid md:grid-cols-2 gap-0 border border-[#E5E7EB]">
           {/* Image side */}
-          <div className="relative min-h-[460px] overflow-hidden">
+          <div className="relative min-h-[220px] sm:min-h-[320px] md:min-h-[460px] overflow-hidden">
             <Image
               src={ci.testimonial1}
               alt="Discover South Asian Fashion"
@@ -138,9 +138,9 @@ export default async function HomePage() {
           </div>
 
           {/* Text side */}
-          <div className="bg-white flex flex-col justify-center p-10 md:p-14 space-y-6">
+          <div className="bg-white flex flex-col justify-center p-5 sm:p-8 md:p-14 space-y-4 md:space-y-6">
             <p className="text-[#D57429] text-xs font-semibold tracking-widest uppercase">New Collection</p>
-            <h2 className="text-[36px] md:text-[44px] font-bold text-[#0F0D1A] leading-tight">
+            <h2 className="text-2xl sm:text-[30px] md:text-[44px] font-bold text-[#0F0D1A] leading-tight">
               Discover And<br />
               <span className="text-[#0F4041]">Rehome South Asian</span><br />
               Fashion and Accessories
@@ -233,7 +233,7 @@ export default async function HomePage() {
             {/* For Sellers — LEFT */}
             <div className="border-2 border-[#D57429] bg-white overflow-hidden">
               <div className="bg-[#D57429] text-white px-6 py-3 font-semibold text-sm tracking-widest">FOR SELLERS</div>
-              <div className="relative h-[300px] overflow-hidden">
+              <div className="relative h-[180px] sm:h-[240px] md:h-[300px] overflow-hidden">
                 <Image src={ci.productWoman3} alt="For Sellers" fill className="object-cover object-top" unoptimized />
               </div>
               <div className="p-6 space-y-5">
@@ -260,7 +260,7 @@ export default async function HomePage() {
             {/* For Buyers — RIGHT */}
             <div className="border-2 border-[#0F4041] bg-white overflow-hidden">
               <div className="bg-[#0F4041] text-white px-6 py-3 font-semibold text-sm tracking-widest">FOR BUYERS</div>
-              <div className="relative h-[300px] overflow-hidden">
+              <div className="relative h-[180px] sm:h-[240px] md:h-[300px] overflow-hidden">
                 <Image src={ci.productWoman2} alt="For Buyers" fill className="object-cover object-top" unoptimized />
               </div>
               <div className="p-6 space-y-5">
@@ -455,7 +455,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-5">
             {testimonials.map((t, i) => (
               <div key={i} className="border border-[#E5E7EB] p-5 flex gap-5 items-start">
-                <div className="shrink-0 w-[110px] h-[165px] overflow-hidden">
+                <div className="shrink-0 w-[70px] h-[105px] sm:w-[110px] sm:h-[165px] overflow-hidden">
                   <Image
                     src={t.image}
                     alt={t.name}

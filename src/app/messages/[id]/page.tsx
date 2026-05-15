@@ -83,7 +83,7 @@ export default function ChatPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-[1310px] px-4 py-16 max-w-2xl">
+      <div className="mx-auto max-w-2xl px-4 py-16">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-[#F7F7F7] rounded w-48" />
           <div className="h-64 bg-[#F7F7F7] rounded" />
@@ -93,7 +93,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="mx-auto max-w-[1310px] px-4 py-8 max-w-2xl flex flex-col h-[calc(100vh-120px)]">
+    <div className="mx-auto max-w-2xl px-4 py-4 md:py-8 flex flex-col h-[calc(100dvh-130px)] md:h-[calc(100vh-150px)]">
       <div className="flex items-center gap-3 mb-4">
         <Link href="/messages">
           <Button variant="ghost" size="sm" className="gap-1">

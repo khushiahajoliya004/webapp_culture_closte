@@ -42,7 +42,7 @@ export default function ContactPage() {
       <Card className="max-w-xl mx-auto mt-12 rounded-none border-[#E5E7EB]">
         <CardContent className="p-6">
           <form className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" placeholder="Your name" className="rounded-none border-[#E5E7EB]" />

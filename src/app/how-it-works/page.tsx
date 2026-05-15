@@ -25,7 +25,7 @@ export default function HowItWorksPage() {
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <Card className="rounded-none border-[#E5E7EB]">
-          <CardContent className="p-8">
+          <CardContent className="p-5 md:p-8">
             <h2 className="text-xl font-bold text-[#0F4041] mb-6">For Buyers</h2>
             <div className="space-y-6">
               {buyerSteps.map((step, i) => (
@@ -44,7 +44,7 @@ export default function HowItWorksPage() {
         </Card>
 
         <Card className="rounded-none border-[#E5E7EB]">
-          <CardContent className="p-8">
+          <CardContent className="p-5 md:p-8">
             <h2 className="text-xl font-bold text-[#D57429] mb-6">For Sellers</h2>
             <div className="space-y-6">
               {sellerSteps.map((step, i) => (
