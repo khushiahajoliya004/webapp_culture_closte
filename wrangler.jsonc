@@ -1,0 +1,19 @@
+{
+  "name": "culture-closet",
+  "account_id": "51eefdb1bdf49e3cfaf546febc8fd5d7",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".open-next/worker.js",
+  "workers_dev": true,
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "culture-closet-db",
+      "database_id": "17c1fb23-b36e-4099-8ccd-2fec1c13eed4"
+    }
+  ]
+}
